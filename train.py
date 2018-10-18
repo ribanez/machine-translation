@@ -10,7 +10,7 @@ from tqdm import tqdm
 from seq2seq import models, utils
 from seq2seq.data.dictionary import Dictionary
 from seq2seq.data.dataset import Seq2SeqDataset, BatchSampler
-from seq2seq.models import ARCH_MODEL_REGISTRY
+from seq2seq.models import ARCH_MODEL_REGISTRY, ARCH_CONFIG_REGISTRY
 
 
 def get_args():
@@ -90,7 +90,7 @@ def main(args):
 
     # Build an optimizer and a learning rate schedule
     optimizer = torch.optim.SGD(model.parameters(), args.lr, args.momentum, weight_decay=args.weight_decay, nesterov=True)
-    lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=0, min_lr=args.min_lr, factor=args.lr_shrink)
+    lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=20, min_lr=args.min_lr, factor=args.lr_shrink)
 
     # Load last checkpoint if one exists
     state_dict = utils.load_checkpoint(args, model, optimizer, lr_scheduler)
