@@ -31,8 +31,8 @@ python train.py --data data-bin/iwslt14.tokenized.de-en --source-lang de --targe
 ### Prediction
 When the training is done, you can make predictions and compute BLEU scores:
 ```bash
-python generate.py --data data-bin/iwslt14.tokenized.de-en --checkpoint-path checkpoints/lstm/checkpoint_best.pt > /tmp/lstm.out
-grep ^H /tmp/lstm.out | cut -f2- | sed -r 's/'$(echo -e "\033")'\[[0-9]{1,2}(;([0-9]{1,2})?)?[mK]//g' > /tmp/lstm.sys
-grep ^T /tmp/lstm.out | cut -f2- | sed -r 's/'$(echo -e "\033")'\[[0-9]{1,2}(;([0-9]{1,2})?)?[mK]//g' > /tmp/lstm.ref
-python score.py --reference /tmp/lstm.ref --system /tmp/lstm.sys
+python generate.py --data data-bin/tokenized.ang-res/ --checkpoint-path checkpoints/lstm_res2ang/checkpoint_best.pt > /tmp/lstm.out
+grep ^H ./tmp/lstm.out | cut -f2- | sed -r 's/'$(echo -e "\033")'\[[0-9]{1,2}(;([0-9]{1,2})?)?[mK]//g' > ./tmp/lstm.sys
+grep ^T ./tmp/lstm.out | cut -f2- | sed -r 's/'$(echo -e "\033")'\[[0-9]{1,2}(;([0-9]{1,2})?)?[mK]//g' > ./tmp/lstm.ref
+python score.py --reference /tmp/lstm.ref --system ./tmp/lstm.sys
 ```
